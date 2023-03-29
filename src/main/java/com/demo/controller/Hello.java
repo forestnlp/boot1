@@ -6,9 +6,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @RestController
-@Api(tags = "HelloApi")
+@Api(tags = "HelloApi 接口")
 public class Hello {
 
     @GetMapping("/hello")
@@ -16,9 +17,16 @@ public class Hello {
         return "helloworld!";
     }
 
-    @RequestMapping("/user")
-    @ApiOperation(value = "用户接口")
+    @PostMapping("/user")
+    @ApiOperation(value = "用户提交接口")
     public String getUser(@RequestBody @Valid User user){
         return user.toString();
+    }
+
+    @GetMapping("/user/{id}")
+    @ApiOperation(value = "根据id获取用户接口")
+    public User getUserById(@PathVariable int id){
+        User zhangsan = new User(id, "zhangsan", 18, "zhangsan@sina.com", LocalDate.now());
+        return zhangsan;
     }
 }
