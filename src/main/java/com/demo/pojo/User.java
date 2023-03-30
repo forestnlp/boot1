@@ -1,6 +1,5 @@
 package com.demo.pojo;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,27 +21,22 @@ import java.time.LocalDate;
 @Table(indexes = {@Index(name="uk_email",columnList = "email",unique = true)})
 public class User {
     @NotNull(message = "id不能为空")
-    @ApiModelProperty("用户编号")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "姓名不能为空")
-    @ApiModelProperty("用户姓名")
     @Column(nullable = false,columnDefinition = "varchar(20) comment '姓名' ")
     private String name;
 
     @Min(value = 1, message = "年龄要大于1岁")
-    @ApiModelProperty("年龄")
     @Transient
     private int age;
 
     @Email(message = "email格式不准确")
-    @ApiModelProperty("邮箱")
     @Column(nullable = false,columnDefinition = "varchar(50) comment '邮箱' ")
     private String email;
 
     @Past(message = "生日要小于当日")
-    @ApiModelProperty("生日")
     LocalDate birthDay;
 }
